@@ -1,6 +1,9 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import uvicorn
+from session import session
+from session import URLShort
+import uuid
 
 app = FastAPI()
 
@@ -16,9 +19,18 @@ async def health_check():
 # Endpoint para acortar URL
 @app.post("/shorten")
 async def shorten_url(item: URLItem):
-    # Aquí iría la lógica para acortar la URL
-    # Por ahora, simplemente devolvemos la misma URL
-    return {"shortened_url": item.url}
+    # Generar un hash aleatorio único para la URL
+    url_hash = str(uuid.uuid4())[:8]
+    shortened_url = f"localhost:9595/info/{url_hash}"
+    
+    # Crear un nuevo registro de URLShort
+    new_url = URLShort(original_url=item.url, name=url_hash)
+    
+    # Insertar el registro en la base de datos
+    session.add(new_url)
+    session.commit()
+    
+    return {"shortened_url": shortened_url}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=9595)
