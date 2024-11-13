@@ -4,6 +4,7 @@ import uvicorn
 from session import session
 from session import URLShort
 import uuid
+from fastapi.responses import RedirectResponse
 
 app = FastAPI()
 
@@ -31,6 +32,19 @@ async def shorten_url(item: URLItem):
     session.commit()
     
     return {"shortened_url": shortened_url}
+
+# Nuevo endpoint para redirigir a la URL original
+@app.get("/info/{url_hash}")
+async def redirect_to_url(url_hash: str):
+    # Buscar el registro en la base de datos
+    url_record = session.query(URLShort).filter_by(name=url_hash).first()
+    
+    # Si no se encuentra el registro, lanzar una excepción
+    if not url_record:
+        raise HTTPException(status_code=404, detail="URL no encontrada")
+    
+    # Redirigir a la URL original
+    return RedirectResponse(url=url_record.original_url)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=9595)
