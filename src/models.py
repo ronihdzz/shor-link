@@ -1,10 +1,8 @@
-from sqlalchemy import Boolean, Column, DateTime, Float, ForeignKey, Integer, String, create_engine,Enum
+from sqlalchemy import Boolean, Column, DateTime, Float, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 import uuid
-from database import engine
-import enum
 
 Base = declarative_base()
 

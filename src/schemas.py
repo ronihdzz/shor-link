@@ -12,10 +12,12 @@ class UserCreateSchema(UserBase):
 
 class UserRetrieveSchema(UserBase):
     id: UUID
+    username: str
+    email: EmailStr
 
     class Config:
         orm_mode = True
-
+        
 class UserUpdateSchema(BaseModel):
     password: str
 
@@ -25,6 +27,11 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     user_id: str | None = None
+
+
+
+
+
 
 class URLShortCreateSchema(BaseModel):
     url: str
@@ -47,6 +54,7 @@ class PlansCreateSchema(BaseModel):
     duration_months: int
 
 class PlansAgreementSchema(BaseModel):
+    id: UUID
     plan_id: UUID
     user_id: UUID
     start_date: datetime

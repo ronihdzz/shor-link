@@ -49,7 +49,7 @@ def get_current_user(db: Session = Depends(get_db), token: str = Depends(oauth2_
     except jwt.JWTError:
         raise credentials_exception
 
-    user = db.query(User).filter(User.id == user_id).first()
+    user = db.query(User).filter(User.id == user_id, User.is_removed == False).first()
     if user is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -59,7 +59,7 @@ def get_current_user(db: Session = Depends(get_db), token: str = Depends(oauth2_
     return user
 
 def authenticate_user(db: Session, username: str, password: str):
-    user = db.query(User).filter(User.username == username).first()
+    user = db.query(User).filter(User.username == username, User.is_removed == False).first()
     if not user:
         return False
     if not pwd_context.verify(password, user.hashed_password):

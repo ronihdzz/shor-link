@@ -4,6 +4,7 @@ from models import URLShort
 from database import get_db
 from fastapi.responses import RedirectResponse
 
+
 router = APIRouter()
 
 
