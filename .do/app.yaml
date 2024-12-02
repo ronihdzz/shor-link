@@ -1,7 +1,0 @@
-name: Short URLs API
-services:
-  - name: short-urls-api
-    dockerfile_path: deployments/Dockerfile.deploy
-    http_port: 9000
-    routes:
-      - path: /
