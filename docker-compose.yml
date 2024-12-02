@@ -16,8 +16,8 @@ services:
     image: short-links-api:latest
     container_name: short-links-api
     ports:
-      - "9000:9000"
+      - "8080:8080"
     env_file:
       - .envs/.env
-    volumes:
-      - .:/application
+    environment:
+      - PORT=8080
