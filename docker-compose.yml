@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  base_de_uri:
+  database:
     image: postgres:latest
     environment:
       POSTGRES_USER: uri
@@ -9,3 +9,15 @@ services:
       POSTGRES_DB: testing
     ports:
       - "9999:5432"
+  app:
+    build:
+      context: .
+      dockerfile: deployments/Dockerfile.deploy
+    image: short-links-api:latest
+    container_name: short-links-api
+    ports:
+      - "9000:9000"
+    env_file:
+      - .envs/.env
+    volumes:
+      - .:/application
