@@ -10,7 +10,7 @@ from settings import settings
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
-    title=settings.project_name,
+    title=settings.PROJECT_NAME,
     version=settings.version
 )
 

@@ -11,8 +11,8 @@ templates = Jinja2Templates(directory="templates")
 async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {
         "request": request,
-        "project_name": settings.project_name,
+        "PROJECT_NAME": settings.PROJECT_NAME,
         "version": settings.version,
         "author": settings.author,
-        "profile_image_url": settings.profile_image_url
+        "PROFILE_IMAGE_URL": settings.PROFILE_IMAGE_URL
     })
