@@ -6,18 +6,12 @@ from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from models import User
 from settings import settings
-from database import SessionLocal
+from database import get_db
 from jwt.exceptions import ExpiredSignatureError, InvalidTokenError
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 def create_access_token(data: dict, expires_delta: timedelta = None):
     to_encode = data.copy()

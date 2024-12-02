@@ -1,5 +1,8 @@
+from datetime import datetime
 from pydantic import BaseModel, EmailStr
 from uuid import UUID
+
+from sqlalchemy import Column
 class UserBase(BaseModel):
     username: str
     email: EmailStr
@@ -23,7 +26,37 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     user_id: str | None = None
 
-
-
-class URLItem(BaseModel):
+class URLShortCreateSchema(BaseModel):
     url: str
+
+class URLShortPlanCreateSchema(BaseModel):
+    url: str
+    domain: str
+
+class PlansSchema(BaseModel):
+    id: UUID
+    name: str
+    description: str
+    price: float
+    duration_months: int
+    
+class PlansCreateSchema(BaseModel):
+    name: str
+    description: str
+    price: float
+    duration_months: int
+
+class PlansAgreementSchema(BaseModel):
+    plan_id: UUID
+    user_id: UUID
+    start_date: datetime
+    end_date: datetime
+
+class PlansAgreementCreateSchema(BaseModel):
+    plan_id: UUID
+
+
+class UserLoginSchema(BaseModel):
+    username: str
+    password: str
+

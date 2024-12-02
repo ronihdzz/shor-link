@@ -10,9 +10,13 @@ class Settings(BaseSettings):
     PRIVATE_KEY: str = Field(..., env="PRIVATE_KEY")
     PUBLIC_KEY: str = Field(..., env="PUBLIC_KEY")
     jwt_algorithm: str = "RS256"
-    jwt_expiration_minutes: int = 10
+    jwt_expiration_minutes: int = 24 * 60
     DATABASE_URL: str
     DOMAIN: str
+    TIMEZONE: str = "America/Mexico_City"
     model_config = SettingsConfigDict(env_file=".env")
+    
+    
+    MAX_URLS_FREE: int = 2
 
 settings = Settings()

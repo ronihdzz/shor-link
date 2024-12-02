@@ -16,6 +16,7 @@ passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 firebase = "^4.0.1"
 cryptography = "^43.0.3"
 psycopg2-binary = "^2.9.10"
+pytz = "^2024.2"
 
 
 [tool.poetry.group.dev.dependencies]
